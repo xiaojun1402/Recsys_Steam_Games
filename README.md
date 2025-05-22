@@ -1,37 +1,63 @@
+### About Dataset
+#### Context
+The dataset contains over 41 million cleaned and preprocessed user recommendations (reviews) from a Steam Store - a leading online platform for purchasing and downloading video games, DLC, and other gaming-related content. Additionally, it contains detailed information about games and add-ons.
+
+#### Content
+The dataset consists of three main entities:
+
+- `games.csv` - a table of games (or add-ons) information on ratings, pricing in US dollars $, release date, etc. A piece of extra non-tabular details on games, such as descriptions and tags, is in a metadata file;
+- `users.csv` - a table of user profiles' public information: the number of purchased products and reviews published;
+- `recommendations.csv` - a table of user reviews: whether the user recommends a product. The table represents a many-many relation between a game entity and a user entity.
+
+The dataset does not contain any personal information about users on a Steam Platform. A preprocessing pipeline anonymized all user IDs. All collected data is accessible to a member of the general public.
+
+#### Acknowledgements
+The dataset was collected from Steam Official Store. All rights on the dataset thumbnail image belong to the Valve Corporation.
+
+#### Inspiration
+Use this dataset to practice building a game recommendation system or performing an Exploratory Data Analysis on products from a Steam Store.
+
+
 ### Dataset: Game Recommendations on Steam - Users
 
 | Column Name | Description                                       |
 |-------------|---------------------------------------------------|
-| user_id     | User's auto-generated ID                          |
-| products    | Number of games/add-ons purchased by the user     |
-| reviews     | Number of reviews published                       |
+| `user_id`     | User's auto-generated ID                          |
+| `products`    | Number of games/add-ons purchased by the user     |
+| `reviews`     | Number of reviews published                       |
 
 
 ### Dataset: Game Recommendations on Steam - Games
 
-| Column Name    | Description                                                              |
-|----------------|--------------------------------------------------------------------------|
-| app_id         | Native product ID on Steam                                               |
-| title          | Product title                                                            |
-| date_release   | Product release date                                                     |
-| win            | Supports Windows?                                                        |
-| mac            | Supports MacOS?                                                          |
-| linux          | Supports Linux?                                                          |
-| rating         | Product rating category                                                  |
-| positive_ratio | Ratio of positive feedbacks                                              |
-| user_reviews   | Amount of user reviews available on the Steam page (NOT in the dataset)  |
-| price_final    | Price in US dollars ($), calculated after the discount                   |
+| Feature          | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `app_id`         | Native product ID on Steam                                                  |
+| `title`          | Product title                                                               |
+| `date_release`   | Product release date                                                        |
+| `win`            | Boolean flag indicating if the game supports Windows                        |
+| `mac`            | Boolean flag indicating if the game supports macOS                          |
+| `linux`          | Boolean flag indicating if the game supports Linux                          |
+| `rating`         | Product rating category (e.g., "Mostly Positive", "Mixed")                  |
+| `positive_ratio` | Ratio of positive reviews (positive / total reviews)                        |
+| `user_reviews`   | Number of user reviews on the Steam page (not scraped into the dataset)     |
+| `price_final`    | Final price in USD after any discounts                                      |
+| `price_original` | Original price in USD before any discounts                                  |
+| `discount`       | Discount percentage applied to the original price                           |
+| `steam_deck`     | Boolean flag indicating if the game is compatible with the Steam Deck       |
+You can paste this directly into your README file under a section like ## Dataset Features.
+
+Let me know if you'd like to include data types or example values as well.
 
 
 ### Dataset: Game Recommendations on Steam - Recommendations
 
 | Column Name     | Description                                                  |
 |------------------|--------------------------------------------------------------|
-| app_id           | Native product ID on Steam                                   |
-| helpful          | How many users found a recommendation helpful                |
-| funny            | How many users found a recommendation funny                  |
-| date             | Date of publishing                                           |
-| is_recommended   | Is the user recommending the product?                        |
-| hours            | How many hours played by the user                            |
-| user_id          | User's anonymized ID                                         |
-| review_id        | Autogenerated ID                                             |
+| `app_id`           | Native product ID on Steam                                   |
+| `helpful`          | How many users found a recommendation helpful                |
+| `funny`            | How many users found a recommendation funny                  |
+| `date`             | Date of publishing                                           |
+| `is_recommended`   | Is the user recommending the product?                        |
+| `hours`            | How many hours played by the user                            |
+| `user_id`          | User's anonymized ID                                         |
+| `review_id`        | Autogenerated ID                                             |

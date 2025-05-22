@@ -1,3 +1,6 @@
+### Avoids accidentally committing things like .ipynb_checkpoints, 
+### temp files, datasets, etc 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -172,3 +175,22 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# data
+*.csv
+
+# mac
+.DS_Store
+*.parquet/
+
+# trash
+*.Trash*
+
+# Ignore data zip archive
+data.zip
+
+# Ignore data file 
+data/
+
+# Ignore datamart file 
+datamart/

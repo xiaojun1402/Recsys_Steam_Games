@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": 1091500, "label": "Cyberpunk 2077", "shape": "dot", "size": 33.7262, "title": "Cyberpunk 2077\nRecommendations: 168631"}, {"color": "#97c2fc", "id": 1085660, "label": "Destiny 2", "shape": "dot", "size": 30.4006, "title": "Destiny 2\nRecommendations: 152003"}, {"color": "#97c2fc", "id": 292030, "label": "The Witcher\u00ae 3: Wild Hunt", "shape": "dot", "size": 38.6278, "title": "The Witcher\u00ae 3: Wild Hunt\nRecommendations: 193139"}, {"color": "#97c2fc", "id": 252490, "label": "Rust", "shape": "dot", "size": 45.2586, "title": "Rust\nRecommendations: 226293"}, {"color": "#97c2fc", "id": 431960, "label": "Wallpaper Engine", "shape": "dot", "size": 37.3584, "title": "Wallpaper Engine\nRecommendations: 186792"}, {"color": "#97c2fc", "id": 359550, "label": "Tom Clancy\u0027s Rainbow Six\u00ae Siege", "shape": "dot", "size": 31.0702, "title": "Tom Clancy\u0027s Rainbow Six\u00ae Siege\nRecommendations: 155351"}, {"color": "#97c2fc", "id": 945360, "label": "Among Us", "shape": "dot", "size": 30.0578, "title": "Among Us\nRecommendations: 150289"}, {"color": "#97c2fc", "id": 440, "label": "Team Fortress 2", "shape": "dot", "size": 58.9758, "title": "Team Fortress 2\nRecommendations: 294879"}, {"color": "#97c2fc", "id": 227300, "label": "Euro Truck Simulator 2", "shape": "dot", "size": 34.318, "title": "Euro Truck Simulator 2\nRecommendations: 171590"}, {"color": "#97c2fc", "id": 374320, "label": "DARK SOULS\u2122 III", "shape": "dot", "size": 35.3484, "title": "DARK SOULS\u2122 III\nRecommendations: 176742"}, {"color": "#97c2fc", "id": 444090, "label": "Paladins\u00ae", "shape": "dot", "size": 34.3032, "title": "Paladins\u00ae\nRecommendations: 171516"}, {"color": "#97c2fc", "id": 730, "label": "Counter-Strike: Global Offensive", "shape": "dot", "size": 37.2612, "title": "Counter-Strike: Global Offensive\nRecommendations: 186306"}, {"color": "#97c2fc", "id": 377160, "label": "Fallout 4", "shape": "dot", "size": 32.0994, "title": "Fallout 4\nRecommendations: 160497"}, {"color": "#97c2fc", "id": 550, "label": "Left 4 Dead 2", "shape": "dot", "size": 34.5158, "title": "Left 4 Dead 2\nRecommendations: 172579"}, {"color": "#97c2fc", "id": 570, "label": "Dota 2", "shape": "dot", "size": 34.3682, "title": "Dota 2\nRecommendations: 171841"}]);
+                  edges = new vis.DataSet([{"from": 1091500, "title": "Recommended Together: 5566\nGames: Cyberpunk 2077 \u2194 Destiny 2", "to": 1085660, "value": 5566}, {"from": 1091500, "title": "Recommended Together: 9103\nGames: Cyberpunk 2077 \u2194 The Witcher\u00ae 3: Wild Hunt", "to": 292030, "value": 9103}, {"from": 1091500, "title": "Recommended Together: 3627\nGames: Cyberpunk 2077 \u2194 Team Fortress 2", "to": 440, "value": 3627}, {"from": 1091500, "title": "Recommended Together: 2775\nGames: Cyberpunk 2077 \u2194 Tom Clancy\u0027s Rainbow Six\u00ae Siege", "to": 359550, "value": 2775}, {"from": 1091500, "title": "Recommended Together: 4114\nGames: Cyberpunk 2077 \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 4114}, {"from": 1091500, "title": "Recommended Together: 2960\nGames: Cyberpunk 2077 \u2194 Wallpaper Engine", "to": 431960, "value": 2960}, {"from": 1091500, "title": "Recommended Together: 2137\nGames: Cyberpunk 2077 \u2194 Left 4 Dead 2", "to": 550, "value": 2137}, {"from": 1091500, "title": "Recommended Together: 3854\nGames: Cyberpunk 2077 \u2194 Fallout 4", "to": 377160, "value": 3854}, {"from": 1091500, "title": "Recommended Together: 1433\nGames: Cyberpunk 2077 \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1433}, {"from": 1091500, "title": "Recommended Together: 3306\nGames: Cyberpunk 2077 \u2194 Among Us", "to": 945360, "value": 3306}, {"from": 1091500, "title": "Recommended Together: 1138\nGames: Cyberpunk 2077 \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 1138}, {"from": 1091500, "title": "Recommended Together: 1446\nGames: Cyberpunk 2077 \u2194 Rust", "to": 252490, "value": 1446}, {"from": 1091500, "title": "Recommended Together: 1276\nGames: Cyberpunk 2077 \u2194 Dota 2", "to": 570, "value": 1276}, {"from": 1091500, "title": "Recommended Together: 1748\nGames: Cyberpunk 2077 \u2194 Paladins\u00ae", "to": 444090, "value": 1748}, {"from": 1085660, "title": "Recommended Together: 2175\nGames: Destiny 2 \u2194 The Witcher\u00ae 3: Wild Hunt", "to": 292030, "value": 2175}, {"from": 1085660, "title": "Recommended Together: 2162\nGames: Destiny 2 \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 2162}, {"from": 1085660, "title": "Recommended Together: 2502\nGames: Destiny 2 \u2194 Among Us", "to": 945360, "value": 2502}, {"from": 1085660, "title": "Recommended Together: 760\nGames: Destiny 2 \u2194 Fallout 4", "to": 377160, "value": 760}, {"from": 1085660, "title": "Recommended Together: 425\nGames: Destiny 2 \u2194 Rust", "to": 252490, "value": 425}, {"from": 1085660, "title": "Recommended Together: 183\nGames: Destiny 2 \u2194 Euro Truck Simulator 2", "to": 227300, "value": 183}, {"from": 1085660, "title": "Recommended Together: 4759\nGames: Destiny 2 \u2194 Team Fortress 2", "to": 440, "value": 4759}, {"from": 1085660, "title": "Recommended Together: 1730\nGames: Destiny 2 \u2194 Tom Clancy\u0027s Rainbow Six\u00ae Siege", "to": 359550, "value": 1730}, {"from": 1085660, "title": "Recommended Together: 441\nGames: Destiny 2 \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 441}, {"from": 1085660, "title": "Recommended Together: 838\nGames: Destiny 2 \u2194 Wallpaper Engine", "to": 431960, "value": 838}, {"from": 1085660, "title": "Recommended Together: 886\nGames: Destiny 2 \u2194 Left 4 Dead 2", "to": 550, "value": 886}, {"from": 1085660, "title": "Recommended Together: 713\nGames: Destiny 2 \u2194 Dota 2", "to": 570, "value": 713}, {"from": 1085660, "title": "Recommended Together: 1356\nGames: Destiny 2 \u2194 Paladins\u00ae", "to": 444090, "value": 1356}, {"from": 292030, "title": "Recommended Together: 1971\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Tom Clancy\u0027s Rainbow Six\u00ae Siege", "to": 359550, "value": 1971}, {"from": 292030, "title": "Recommended Together: 1554\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Wallpaper Engine", "to": 431960, "value": 1554}, {"from": 292030, "title": "Recommended Together: 3726\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 3726}, {"from": 292030, "title": "Recommended Together: 1910\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Left 4 Dead 2", "to": 550, "value": 1910}, {"from": 292030, "title": "Recommended Together: 2562\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Fallout 4", "to": 377160, "value": 2562}, {"from": 292030, "title": "Recommended Together: 1142\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1142}, {"from": 292030, "title": "Recommended Together: 2556\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Team Fortress 2", "to": 440, "value": 2556}, {"from": 292030, "title": "Recommended Together: 920\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 920}, {"from": 292030, "title": "Recommended Together: 2297\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Among Us", "to": 945360, "value": 2297}, {"from": 292030, "title": "Recommended Together: 1663\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Dota 2", "to": 570, "value": 1663}, {"from": 292030, "title": "Recommended Together: 863\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Rust", "to": 252490, "value": 863}, {"from": 292030, "title": "Recommended Together: 1711\nGames: The Witcher\u00ae 3: Wild Hunt \u2194 Paladins\u00ae", "to": 444090, "value": 1711}, {"from": 252490, "title": "Recommended Together: 3688\nGames: Rust \u2194 Wallpaper Engine", "to": 431960, "value": 3688}, {"from": 252490, "title": "Recommended Together: 4335\nGames: Rust \u2194 Tom Clancy\u0027s Rainbow Six\u00ae Siege", "to": 359550, "value": 4335}, {"from": 252490, "title": "Recommended Together: 5546\nGames: Rust \u2194 Among Us", "to": 945360, "value": 5546}, {"from": 252490, "title": "Recommended Together: 1380\nGames: Rust \u2194 Dota 2", "to": 570, "value": 1380}, {"from": 252490, "title": "Recommended Together: 1434\nGames: Rust \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1434}, {"from": 252490, "title": "Recommended Together: 5355\nGames: Rust \u2194 Team Fortress 2", "to": 440, "value": 5355}, {"from": 252490, "title": "Recommended Together: 2364\nGames: Rust \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 2364}, {"from": 252490, "title": "Recommended Together: 1844\nGames: Rust \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 1844}, {"from": 252490, "title": "Recommended Together: 2134\nGames: Rust \u2194 Fallout 4", "to": 377160, "value": 2134}, {"from": 252490, "title": "Recommended Together: 2077\nGames: Rust \u2194 Paladins\u00ae", "to": 444090, "value": 2077}, {"from": 252490, "title": "Recommended Together: 2177\nGames: Rust \u2194 Left 4 Dead 2", "to": 550, "value": 2177}, {"from": 431960, "title": "Recommended Together: 4285\nGames: Wallpaper Engine \u2194 Tom Clancy\u0027s Rainbow Six\u00ae Siege", "to": 359550, "value": 4285}, {"from": 431960, "title": "Recommended Together: 9318\nGames: Wallpaper Engine \u2194 Among Us", "to": 945360, "value": 9318}, {"from": 431960, "title": "Recommended Together: 7635\nGames: Wallpaper Engine \u2194 Team Fortress 2", "to": 440, "value": 7635}, {"from": 431960, "title": "Recommended Together: 2581\nGames: Wallpaper Engine \u2194 Euro Truck Simulator 2", "to": 227300, "value": 2581}, {"from": 431960, "title": "Recommended Together: 3346\nGames: Wallpaper Engine \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 3346}, {"from": 431960, "title": "Recommended Together: 3939\nGames: Wallpaper Engine \u2194 Left 4 Dead 2", "to": 550, "value": 3939}, {"from": 431960, "title": "Recommended Together: 1572\nGames: Wallpaper Engine \u2194 Dota 2", "to": 570, "value": 1572}, {"from": 431960, "title": "Recommended Together: 2824\nGames: Wallpaper Engine \u2194 Fallout 4", "to": 377160, "value": 2824}, {"from": 431960, "title": "Recommended Together: 2404\nGames: Wallpaper Engine \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 2404}, {"from": 431960, "title": "Recommended Together: 4033\nGames: Wallpaper Engine \u2194 Paladins\u00ae", "to": 444090, "value": 4033}, {"from": 359550, "title": "Recommended Together: 2155\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 2155}, {"from": 359550, "title": "Recommended Together: 2739\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 2739}, {"from": 359550, "title": "Recommended Together: 1765\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1765}, {"from": 359550, "title": "Recommended Together: 2791\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Left 4 Dead 2", "to": 550, "value": 2791}, {"from": 359550, "title": "Recommended Together: 5387\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Team Fortress 2", "to": 440, "value": 5387}, {"from": 359550, "title": "Recommended Together: 3223\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Among Us", "to": 945360, "value": 3223}, {"from": 359550, "title": "Recommended Together: 1828\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Fallout 4", "to": 377160, "value": 1828}, {"from": 359550, "title": "Recommended Together: 1603\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Dota 2", "to": 570, "value": 1603}, {"from": 359550, "title": "Recommended Together: 2735\nGames: Tom Clancy\u0027s Rainbow Six\u00ae Siege \u2194 Paladins\u00ae", "to": 444090, "value": 2735}, {"from": 945360, "title": "Recommended Together: 9496\nGames: Among Us \u2194 Team Fortress 2", "to": 440, "value": 9496}, {"from": 945360, "title": "Recommended Together: 1055\nGames: Among Us \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1055}, {"from": 945360, "title": "Recommended Together: 1581\nGames: Among Us \u2194 Paladins\u00ae", "to": 444090, "value": 1581}, {"from": 945360, "title": "Recommended Together: 2491\nGames: Among Us \u2194 Left 4 Dead 2", "to": 550, "value": 2491}, {"from": 945360, "title": "Recommended Together: 1544\nGames: Among Us \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 1544}, {"from": 945360, "title": "Recommended Together: 455\nGames: Among Us \u2194 Fallout 4", "to": 377160, "value": 455}, {"from": 945360, "title": "Recommended Together: 490\nGames: Among Us \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 490}, {"from": 945360, "title": "Recommended Together: 856\nGames: Among Us \u2194 Dota 2", "to": 570, "value": 856}, {"from": 945360, "title": "Recommended Together: 1\nGames: Among Us \u2194 Among Us", "to": 945360, "value": 1}, {"from": 440, "title": "Recommended Together: 1882\nGames: Team Fortress 2 \u2194 Euro Truck Simulator 2", "to": 227300, "value": 1882}, {"from": 440, "title": "Recommended Together: 3931\nGames: Team Fortress 2 \u2194 Paladins\u00ae", "to": 444090, "value": 3931}, {"from": 440, "title": "Recommended Together: 6777\nGames: Team Fortress 2 \u2194 Left 4 Dead 2", "to": 550, "value": 6777}, {"from": 440, "title": "Recommended Together: 1270\nGames: Team Fortress 2 \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 1270}, {"from": 440, "title": "Recommended Together: 1788\nGames: Team Fortress 2 \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 1788}, {"from": 440, "title": "Recommended Together: 1894\nGames: Team Fortress 2 \u2194 Fallout 4", "to": 377160, "value": 1894}, {"from": 440, "title": "Recommended Together: 1882\nGames: Team Fortress 2 \u2194 Dota 2", "to": 570, "value": 1882}, {"from": 440, "title": "Recommended Together: 1\nGames: Team Fortress 2 \u2194 Team Fortress 2", "to": 440, "value": 1}, {"from": 227300, "title": "Recommended Together: 1098\nGames: Euro Truck Simulator 2 \u2194 Fallout 4", "to": 377160, "value": 1098}, {"from": 227300, "title": "Recommended Together: 2812\nGames: Euro Truck Simulator 2 \u2194 Left 4 Dead 2", "to": 550, "value": 2812}, {"from": 227300, "title": "Recommended Together: 754\nGames: Euro Truck Simulator 2 \u2194 DARK SOULS\u2122 III", "to": 374320, "value": 754}, {"from": 227300, "title": "Recommended Together: 1303\nGames: Euro Truck Simulator 2 \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 1303}, {"from": 227300, "title": "Recommended Together: 1937\nGames: Euro Truck Simulator 2 \u2194 Paladins\u00ae", "to": 444090, "value": 1937}, {"from": 227300, "title": "Recommended Together: 1101\nGames: Euro Truck Simulator 2 \u2194 Dota 2", "to": 570, "value": 1101}, {"from": 374320, "title": "Recommended Together: 954\nGames: DARK SOULS\u2122 III \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 954}, {"from": 374320, "title": "Recommended Together: 2571\nGames: DARK SOULS\u2122 III \u2194 Left 4 Dead 2", "to": 550, "value": 2571}, {"from": 374320, "title": "Recommended Together: 3793\nGames: DARK SOULS\u2122 III \u2194 Fallout 4", "to": 377160, "value": 3793}, {"from": 374320, "title": "Recommended Together: 1861\nGames: DARK SOULS\u2122 III \u2194 Paladins\u00ae", "to": 444090, "value": 1861}, {"from": 374320, "title": "Recommended Together: 1539\nGames: DARK SOULS\u2122 III \u2194 Dota 2", "to": 570, "value": 1539}, {"from": 444090, "title": "Recommended Together: 705\nGames: Paladins\u00ae \u2194 Counter-Strike: Global Offensive", "to": 730, "value": 705}, {"from": 444090, "title": "Recommended Together: 2711\nGames: Paladins\u00ae \u2194 Left 4 Dead 2", "to": 550, "value": 2711}, {"from": 444090, "title": "Recommended Together: 1988\nGames: Paladins\u00ae \u2194 Dota 2", "to": 570, "value": 1988}, {"from": 444090, "title": "Recommended Together: 1042\nGames: Paladins\u00ae \u2194 Fallout 4", "to": 377160, "value": 1042}, {"from": 730, "title": "Recommended Together: 2364\nGames: Counter-Strike: Global Offensive \u2194 Left 4 Dead 2", "to": 550, "value": 2364}, {"from": 730, "title": "Recommended Together: 989\nGames: Counter-Strike: Global Offensive \u2194 Fallout 4", "to": 377160, "value": 989}, {"from": 730, "title": "Recommended Together: 2033\nGames: Counter-Strike: Global Offensive \u2194 Dota 2", "to": 570, "value": 2033}, {"from": 377160, "title": "Recommended Together: 2571\nGames: Fallout 4 \u2194 Left 4 Dead 2", "to": 550, "value": 2571}, {"from": 377160, "title": "Recommended Together: 844\nGames: Fallout 4 \u2194 Dota 2", "to": 570, "value": 844}, {"from": 550, "title": "Recommended Together: 2069\nGames: Left 4 Dead 2 \u2194 Dota 2", "to": 570, "value": 2069}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.05,
+            "damping": 0.9,
+            "nodeDistance": 300,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

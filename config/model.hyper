@@ -1,0 +1,5 @@
+learning_rate loguniform -8,0
+hidden_size choice [64,128,256]
+n_layers choice [2,3,4]
+n_heads choice [2,4,8]
+mask_ratio uniform 0.15,0.3

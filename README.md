@@ -1,3 +1,33 @@
+# Steam Games Recommendation System
+
+This repository contains a comprehensive recommendation system for Steam games, built using multiple machine learning approaches including collaborative filtering, content-based filtering, and hybrid models. The project explores various recommendation techniques to help users discover games they might enjoy based on their gaming history and preferences.
+
+## Project Overview
+
+Our team developed and compared several recommendation algorithms:
+
+- **Baseline Models**: EASE (Embarrassingly Shallow Autoencoders) and multiple collaborative filtering approaches
+- **Content-Based Filtering**: Using BERT embeddings for game descriptions and tag analysis
+- **Contextual Models**: BERT-based cosine similarity recommendations
+- **Hybrid Approaches**: Combining collaborative and content-based methods for improved recommendations
+- **Cold Start Handling**: Addressing new user and new game scenarios through content-based fallbacks
+- **Network Analysis**: Game similarity networks and community detection
+- **Image Analysis**: Visual content analysis for enhanced recommendations
+
+## Key Features
+
+- **Multi-Modal Approach**: Incorporates text descriptions, user behavior, and visual content
+- **Scalable Data Processing**: Handles 41M+ user reviews and 50K+ games
+- **Cold Start Solutions**: Robust handling of new users and games through content-based recommendations
+- **Interactive Visualizations**: Network graphs and recommendation explanations
+- **Performance Evaluation**: Comprehensive metrics including NDCG, NCRR, and Recall@10
+
+## Dataset Information
+
+The project uses Steam game data containing over 41 million user recommendations, with detailed game metadata including descriptions, tags, pricing, and platform compatibility.
+
+---
+
 ### About Dataset
 #### Context
 The dataset contains over 41 million cleaned and preprocessed user recommendations (reviews) from a Steam Store - a leading online platform for purchasing and downloading video games, DLC, and other gaming-related content. Additionally, it contains detailed information about games and add-ons.

@@ -194,3 +194,6 @@ data/
 
 # Ignore datamart file 
 datamart/
+
+# Ignore pdf files 
+*.pdf
